@@ -24,7 +24,19 @@ function App() {
     { id: 3, title: "title", description: "description" },
     { id: 4, title: "title", description: "description" },
   ]);
-
+  const [TitleInput, setTitleInput] = useState("");
+  const [DescriptionInput, setDescription] = useState("");
+  const formAdd = (e) => {
+    e.preventDefault();
+    const obj = {
+      id: Date.now(),
+      title: TitleInput,
+      description: DescriptionInput,
+    };
+    setPosts([...Posts, obj]);
+    setTitleInput('');
+    setDescription('');
+  };
   return (
     <div className="App">
       <div className="container">
@@ -45,12 +57,24 @@ function App() {
       </div>
       <div className="container">
         <form>
-          <input type="text" placeholder="Title" />
-          <input type="text" placeholder="Description" />
-          <MyButton text={Value} />
+          <input
+            value={TitleInput}
+            onChange={(e) => setTitleInput(e.target.value)}
+            type="text"
+            placeholder="Title"
+          />
+          <input
+            value={DescriptionInput}
+            onChange={(e) => setDescription(e.target.value)}
+            type="text"
+            placeholder="Description"
+          />
+          <MyButton onClick={formAdd} text={Value}>
+            {Value}
+          </MyButton>
         </form>
-        {Posts.map((item) => {
-          return <TitleProps key={item.id} post={item} />;
+        {Posts.map((item, i) => {
+          return <TitleProps number={i + 1} key={item.id} post={item} />;
         })}
       </div>
       <div className="container"></div>
