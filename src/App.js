@@ -1,41 +1,69 @@
-import React, { useState } from "react";
-
+import React, { useMemo, useState } from "react";
+import { CSSTransition, TransitionGroup } from "react-transition-group";
 import "./App.css";
 
 import Counter from "./components/Counter";
 import TitleProps from "./components/TitleProps";
-import MyButton from "./UI/MyButton";
+import Addpost from "./components/Addpost";
+import SelectElem from "./components/SelectElem";
+import Mymodule from "./UI/Mymodule";
 
 function App() {
   const [Likes, setLikes] = useState(0);
   const [Value, setValue] = useState("text input");
 
   const increment = () => {
-    console.log("increment");
     setLikes(Likes + 1);
   };
   const decrement = () => {
-    console.log("decrement");
     setLikes(Likes - 1);
   };
   const [Posts, setPosts] = useState([
-    { id: 1, title: "title", description: "description" },
-    { id: 2, title: "title", description: "description" },
-    { id: 3, title: "title", description: "description" },
-    { id: 4, title: "title", description: "description" },
+    { id: 1, title: "пп", description: "descri1ption" },
+    { id: 2, title: "аа", description: "descr2iption" },
+    { id: 3, title: "бб", description: "descr3iption" },
+    { id: 4, title: "фф", description: "descript4ion" },
   ]);
-  const [TitleInput, setTitleInput] = useState("");
-  const [DescriptionInput, setDescription] = useState("");
-  const formAdd = (e) => {
+  const [defaultPosts, setdefaultPosts] = useState([...Posts]);
+
+  const [Select, setSelect] = useState([
+    { value: "title", title: "title" },
+    { value: "description", title: "description" },
+  ]);
+  function addPostProps(e) {
+    setPosts([...Posts, e]);
+  }
+  function removePost(e) {
+    console.log("e", e);
+    setPosts(Posts.filter((post) => post.id !== e));
+  }
+  function SortSelect(sort) {
+    console.log("sort", sort);
+    let collatore = new Intl.Collator("ru-RU");
+    setPosts(
+      [...Posts].sort((a, b) => {
+        return collatore.compare(a.title, b.title);
+      })
+    );
+  }
+  const [search, setsearch] = useState("");
+  function Search(e) {
     e.preventDefault();
-    const obj = {
-      id: Date.now(),
-      title: TitleInput,
-      description: DescriptionInput,
-    };
-    setPosts([...Posts, obj]);
-    setTitleInput('');
-    setDescription('');
+    console.log(search);
+    if (!search) {
+      return setPosts(defaultPosts);
+    }
+    setPosts([...Posts].filter((item) => item.title == search));
+  }
+  const [visability, setvisability] = useState(false);
+  if (visability) {
+    document.body.style.overflow = "hidden";
+  } else {
+    document.body.style.overflow = "scroll";
+  }
+
+  const visModule = () => {
+    setvisability(!visability);
   };
   return (
     <div className="App">
@@ -56,26 +84,36 @@ function App() {
         <Counter propsCounret={Likes} />
       </div>
       <div className="container">
-        <form>
-          <input
-            value={TitleInput}
-            onChange={(e) => setTitleInput(e.target.value)}
-            type="text"
-            placeholder="Title"
+        <button onClick={visModule}>popup addPost</button>
+        <Mymodule vis={visability} setVis={setvisability}>
+          <Addpost value={Value} propsFunction={addPostProps} />
+        </Mymodule>
+        <div>
+          <form onSubmit={Search} value={search}>
+            <input
+              placeholder="search"
+              onChange={(e) => {
+                setsearch(e.target.value);
+              }}
+              type="text"
+            />
+            <button>search</button>
+          </form>
+          <SelectElem
+            propsSortSelect={SortSelect}
+            propsSort={"bsbdfvsfv"}
+            Select={Select}
           />
-          <input
-            value={DescriptionInput}
-            onChange={(e) => setDescription(e.target.value)}
-            type="text"
-            placeholder="Description"
-          />
-          <MyButton onClick={formAdd} text={Value}>
-            {Value}
-          </MyButton>
-        </form>
-        {Posts.map((item, i) => {
-          return <TitleProps number={i + 1} key={item.id} post={item} />;
-        })}
+        </div>
+        <TransitionGroup>
+          {Posts.map((item, i) => {
+            return (
+              <CSSTransition key={item.id} timeout={500} classNames="post">
+                <TitleProps remove={removePost} number={i + 1} post={item} />
+              </CSSTransition>
+            );
+          })}
+        </TransitionGroup>
       </div>
       <div className="container"></div>
       <div className="container"></div>

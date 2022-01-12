@@ -1,0 +1,27 @@
+.Mymodule {
+  display: none;
+  background: rgba(0, 0, 0, 0.5);
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+.module {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 300px;
+  height: 300px;
+  border-radius: 5%;
+  background: rgb(255, 255, 255);
+}
+
+.Mymodule.active {
+  display: block;
+}
+
+.cloceX {
+    font-size: 30px;
+}
