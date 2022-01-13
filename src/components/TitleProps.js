@@ -1,17 +1,19 @@
 import React from "react";
-
+import { useNavigate } from "react-router";
 function TitleProps(props) {
   function abc(e) {
-    // console.dir(e);
-    props.remove(props.number);
-    console.log(props.number);
+    props.remove(props.itemId);
   }
-  return (
+  const navigate = useNavigate()
+    return (
     <div className="blockTitleProps">
-      <h3>{props.number}</h3>
+      <h3>{props.itemId}</h3>
       <h1>{props.post.title}</h1>
-      <p>{props.post.description}</p>
-      <button data-d={props.number} onClick={abc}>delete</button>
+      <p>{props.post.body}</p>
+      <button data-d={props.number} onClick={abc}>
+        delete
+      </button>
+      <button onClick={() => navigate(`/post/${props.itemId}`)}>open</button>
     </div>
   );
 }

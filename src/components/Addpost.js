@@ -7,7 +7,7 @@ function Addpost(props) {
     const newPost = {
       id: Date.now(),
       title: e.target[0].value,
-      description: e.target[1].value,
+      body: e.target[1].value,
     };
     props.propsFunction(newPost);
     e.target[0].value = ''
@@ -17,7 +17,7 @@ function Addpost(props) {
   return (
     <form onSubmit={formAdd}>
       <input type="text" placeholder="Title" />
-      <input type="text" placeholder="Description" />
+      <input type="text" placeholder="body" />
       <MyButton text={props.value}>{props.value}</MyButton>
     </form>
   );

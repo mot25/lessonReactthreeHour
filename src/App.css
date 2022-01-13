@@ -32,3 +32,6 @@ div {
 .no-scroll {
   overflow: hidden;
 }
+.navbarLinks {
+  margin: 20px;
+}
