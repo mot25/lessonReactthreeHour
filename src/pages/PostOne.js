@@ -5,21 +5,27 @@ import { useParams } from "react-router-dom";
 const axios = require("axios");
 function PostOne() {
   const [Post, setPost] = useState();
+  const [Comments, setComments] = useState();
   if (Post === false) {
     console.log(false);
   }
   const params = useParams();
-  console.log("params", params);
   const fetchOnePost = async () => {
     const { data } = await axios.get(
       `https://jsonplaceholder.typicode.com/posts/${params.id}`
     );
     await setPost(data);
   };
+  const fetchCommeents = async () => {
+    const { data } = await axios.get(
+      `https://jsonplaceholder.typicode.com/posts/${params.id}/comments`
+    );
+    await setComments(data);
+  };
 
   useEffect(async () => {
     await fetchOnePost();
-    console.log(Post);
+    await fetchCommeents();
   }, [params]);
 
   return (
@@ -33,6 +39,22 @@ function PostOne() {
         </div>
       ) : (
         "loading"
+      )}
+      <h1>--Comments--</h1>
+      {Comments ? (
+        Comments.map((item) => {
+          return (
+            <div key={item.id}>
+              <div>------</div>
+              <h3>{item.name}</h3>
+              <h3>{item.email}</h3>
+              <h3>{item.body}</h3>
+              <div>------</div>
+            </div>
+          );
+        })
+      ) : (
+        <h1>loading</h1>
       )}
     </div>
   );

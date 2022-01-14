@@ -1,4 +1,4 @@
-import React, { useMemo, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
 import "../App.css";
 
@@ -20,12 +20,7 @@ function Posts() {
   const decrement = () => {
     setLikes(Likes - 1);
   };
-  const [Posts, setPosts] = useState([
-    { id: 1, title: "пп", body: "ыукерыукер" },
-    { id: 2, title: "аа", body: "вырыа" },
-    { id: 3, title: "бб", body: "выарывар" },
-    { id: 4, title: "фф", body: "выравар" },
-  ]);
+  const [Posts, setPosts] = useState([]);
   const [defaultPosts, setdefaultPosts] = useState([...Posts]);
 
   const [Select, setSelect] = useState([
@@ -91,7 +86,7 @@ function Posts() {
     showPost();
   }, []);
   const buttonPage = totalCount / limit;
-//   console.log("buttonPage", buttonPage);
+  //   console.log("buttonPage", buttonPage);
   return (
     <div className="App">
       <div className="container">
