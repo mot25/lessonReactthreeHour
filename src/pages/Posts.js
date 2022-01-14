@@ -162,6 +162,7 @@ function Posts() {
         ) : (
           <h3>empty post</h3>
         )}
+        <div style={{height: '20', backgroundColor: 'red', width: '100%'}}></div>
       </div>
     </div>
   );
