@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/lessonReactthreeHour/static/css/main.32f819f5.css",
+    "main.js": "/lessonReactthreeHour/static/js/main.2b68811e.js",
+    "index.html": "/lessonReactthreeHour/index.html",
+    "main.32f819f5.css.map": "/lessonReactthreeHour/static/css/main.32f819f5.css.map",
+    "main.2b68811e.js.map": "/lessonReactthreeHour/static/js/main.2b68811e.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.32f819f5.css",
+    "static/js/main.2b68811e.js"
+  ]
+}
